@@ -830,12 +830,12 @@ if ($f == 'admin_setting' AND (Wo_IsAdmin() || Wo_IsModerator())) {
             'activate',
             'deactivate',
             'delete',
+            'award',
             'free',
             'star',
             'hot',
             'ultima',
-            'vip',
-            'award'
+            'vip'
         ))) {
             foreach ($_POST['ids'] as $key => $value) {
                 if (is_numeric($value) && $value > 0) {
@@ -855,6 +855,13 @@ if ($f == 'admin_setting' AND (Wo_IsAdmin() || Wo_IsModerator())) {
                             'email_code' => ''
                         );
                         $update      = $db->update(T_USERS, $update_data);
+                    } elseif ($_POST['type'] == 'award' && isset($_POST['award_badge'])) {
+                        $db->where('user_id', Wo_Secure($value));
+                        $update_data = array(
+                            'award_badge' => $_POST['award_badge'],
+                            'badge_created_at' => date('Y-m-d')
+                        );
+                        Wo_UpdateUserData(Wo_Secure($value), $update_data);
                     } elseif ($_POST['type'] == 'free') {
                         $member_type = 0;
                         $member_pro  = 0;

@@ -460,6 +460,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                               <select class="form-control show-tick mt-1" id="award_badge" style="display: none;">
                                   <option value="one">one</option>
                                   <option value="two">two</option>
+                                  <option value="three">three</option>
                               </select>
                           </div>
                           <div class="col-lg-3 col-md-3">
@@ -796,7 +797,7 @@ function DeleteSelected() {
     });
     $('.delete-selected').attr('disabled', true);
     $('.delete-selected').text('Please wait..');
-    $.post(Wo_Ajax_Requests_File()+'?f=admin_setting&s=delete_multi_users', {ids: data,type: action_type, award_badge: award_badge}, function () {
+    $.post(Wo_Ajax_Requests_File()+'?f=admin_setting&s=delete_multi_users', { ids: data,type: action_type, award_badge: award_badge }, function () {
         if (action_type == 'delete') {
             $.each( data, function( index, value ){
                 $('#UserID_' + value).remove();

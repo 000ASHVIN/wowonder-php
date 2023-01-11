@@ -739,6 +739,17 @@ if (!empty($wo['story']['parent_id'])) {
          <?php if (!isset($anonymous)) { ?>
          <span class="user-popover" data-type="<?php echo $wo['story']['publisher']['type']; ?>" data-id="<?php echo $wo['story']['publisher']['id']; ?>">
             <a href="<?php echo $wo['story']['publisher']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['story']['publisher']['username']; ?>"><b><?php echo $wo['story']['publisher']['name']; ?></b></a>
+
+            <?php 
+               if($wo['story']['publisher']['award_badge'] && $wo['story']['publisher']['badge_created_at']) { 
+                  $next_due_date = date('Y-m-d', strtotime($wo['story']['publisher']['badge_created_at']. " +30 days"));
+                  if($next_due_date > date('Y-m-d') ) {
+            ?>
+               <span class="badge" id="badge-<?php echo $wo['story']['publisher']['award_badge']; ?>" style="background: #FFCC01; padding-bottom: 4px; font-weight: 500;"><?php echo $wo['story']['publisher']['award_badge']; ?></span>
+            <?php
+                  } 
+               } ?>
+
          </span>
 		 
 		 <?php if (!empty($wo['story']['publisher']['is_open_to_work']) && $wo['config']['website_mode'] == 'linkedin') { ?>
